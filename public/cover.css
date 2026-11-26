@@ -1,0 +1,11 @@
+.process-section--plate { overflow: hidden; }
+.process-cover { display: block; width: calc(100% + 56px); height: clamp(190px, 27vw, 290px); margin: -25px -28px 24px; object-fit: cover; object-position: center 62%; border-radius: 15px 15px 0 0; }
+.process-section--plate .process-heading { gap: 16px; }
+.process-caution { width: min(280px, 32%); flex: none; padding: 9px 13px; border-left: 2px solid #9bbf96; background: #f5f8f2; border-radius: 0 8px 8px 0; }
+.process-caution strong { display: block; color: #507d57; font-size: 10px; line-height: 1.4; }
+.process-caution p { margin: 3px 0 0; color: #6b796b; font-size: 10px; line-height: 1.6; }
+@media (max-width: 760px) {
+  .process-cover { width: calc(100% + 36px); height: 200px; margin: -18px -18px 20px; object-position: center 60%; }
+  .process-section--plate .process-heading { flex-wrap: wrap; }
+  .process-caution { order: 3; width: 100%; margin-left: 59px; }
+}

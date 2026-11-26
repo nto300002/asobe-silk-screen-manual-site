@@ -1,0 +1,6 @@
+.dialog-photo { margin: 16px 0 0; }
+.dialog-photo img { display: block; width: 100%; height: 185px; object-fit: cover; object-position: center 55%; border-radius: 10px; }
+.dialog-photo:not([hidden]) + .dialog-progress { margin-top: 16px; }
+@media (max-width: 760px) {
+  .dialog-photo img { height: 170px; }
+}

@@ -1,0 +1,1 @@
+ALTER TABLE `edit_grants` ADD `session_nonce` text NOT NULL;

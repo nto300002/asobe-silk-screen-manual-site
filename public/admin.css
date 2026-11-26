@@ -1,0 +1,28 @@
+.topbar-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; min-width: 0; }
+.admin-link { display: inline-flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap; padding: 8px 10px; border: 1px solid #dce7da; border-radius: 8px; background: #fff; color: #315d3d; font-size: 11px; font-weight: 700; }
+.admin-link:hover { background: #edf5e9; }
+.admin-settings span { font-size: 15px; line-height: 1; }
+.admin-status { color: #9b4b42; font-size: 10px; }
+.admin-link[hidden], .admin-status[hidden] { display: none; }
+.admin-dialog { width: min(490px, calc(100vw - 24px)); max-height: min(620px, calc(100vh - 24px)); padding: 0; border-radius: 17px; overflow: auto; }
+.admin-dialog-body { padding: 4px 25px 28px; }
+.admin-dialog-body h2 { margin: 8px 0 6px; font-size: 23px; letter-spacing: -.04em; }
+.admin-dialog-body p { margin: 0 0 20px; color: #829083; font-size: 11px; }
+.admin-user-list { display: grid; gap: 8px; min-height: 26px; color: #748274; font-size: 12px; }
+.admin-user-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border: 1px solid #e4ebe1; border-radius: 9px; background: #f9fbf7; color: #354b39; font-weight: 700; }
+.admin-user-name { min-width: 0; overflow-wrap: anywhere; }
+.admin-permission-button { flex: none; border: 1px solid #4b7755; border-radius: 7px; background: #315c3d; color: #fff; padding: 8px 10px; font-size: 10px; font-weight: 700; }
+.admin-permission-button.active { background: #fff; color: #315c3d; }
+.admin-permission-button:disabled { opacity: .55; cursor: wait; }
+.edit-permission-note { margin: 0 0 12px; border-radius: 8px; background: #fff5e8; padding: 10px 12px; color: #826341; font-size: 11px; line-height: 1.6; }
+.edit-permission-note[hidden] { display: none; }
+.check-item:disabled { cursor: default; opacity: .72; }
+.check-item:disabled:hover { border-color: #e7ede5; background: #fff; }
+@media (max-width: 760px) {
+  .topbar { justify-content: flex-end; }
+  .breadcrumb { display: none; }
+  .topbar-actions { gap: 5px; }
+  .admin-link { padding: 7px 8px; font-size: 10px; }
+}
+.skill-permission-intro-backdrop{position:fixed;inset:0;z-index:1100;display:grid;place-items:center;padding:18px;background:#142318ad}.skill-permission-intro{position:relative;width:min(600px,100%);max-height:calc(100vh - 36px);overflow:auto;box-sizing:border-box;padding:30px;border-radius:16px;background:#fff;color:#21382a;box-shadow:0 18px 56px #0005;font-family:"Noto Sans JP",system-ui,sans-serif}.skill-permission-intro h2{margin:8px 30px 16px 0;font-size:22px}.skill-permission-intro p,.skill-permission-intro li{font-size:13px;line-height:1.8}.skill-permission-intro ul{padding-left:22px;margin:10px 0 18px}.skill-permission-intro li{margin:5px 0}.skill-permission-eyebrow{font-size:10px;font-weight:800;letter-spacing:.18em;color:#61866a}.skill-permission-close{position:absolute;right:16px;top:12px;border:0;background:transparent;color:#55665b;font-size:26px;cursor:pointer}.skill-permission-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}.skill-permission-actions button{min-height:40px;padding:9px 16px;border-radius:9px;font-size:13px;font-weight:800;cursor:pointer}.skill-permission-cancel{border:1px solid #b9d9b8;background:#fff;color:#285c39}.skill-permission-next{border:1px solid #284d36;background:#284d36;color:#fff}.skill-tutorial-highlight{position:relative!important;z-index:1001!important;outline:3px solid #79a47a!important;outline-offset:3px;background:#f0f8ed!important}.skill-tutorial-mask{position:fixed;z-index:1000;background:#142318b3;cursor:pointer}.skill-tutorial-bubble{position:fixed;z-index:1002;width:min(320px,calc(100vw - 24px));box-sizing:border-box;padding:15px 42px 15px 16px;border-radius:12px;background:#fff;color:#21382a;box-shadow:0 10px 36px #0005;font-size:13px;line-height:1.55;cursor:pointer}.skill-tutorial-bubble button{position:absolute;right:8px;top:6px;border:0;background:transparent;color:#55665b;font-size:24px}.skill-tutorial-bubble p{margin:6px 0}.skill-tutorial-bubble small{color:#647568}@media(max-width:600px){.skill-permission-intro{padding:22px}.skill-permission-intro h2{font-size:19px}}
+@media(max-width:760px){.topbar{height:auto;min-height:82px;padding:12px 18px}.topbar-actions{flex-wrap:wrap}.topbar-actions .admin-link{white-space:normal;text-align:center}}

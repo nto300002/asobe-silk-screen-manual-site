@@ -1,0 +1,10 @@
+.user-dialog { overflow: visible; }
+.user-name-picker { position: relative; flex: 1; min-width: 0; }
+.user-form-row .user-name-picker input { width: 100%; padding-right: 39px; }
+.user-form-row .user-name-toggle { position: absolute; top: 3px; right: 3px; width: 34px; height: calc(100% - 6px); padding: 0; border: 0; border-radius: 6px; background: transparent; color: #618069; font-size: 11px; }
+.user-form-row .user-name-toggle:hover, .user-form-row .user-name-toggle[aria-expanded="true"] { background: #edf5e9; }
+.user-name-choices { position: absolute; z-index: 10; top: calc(100% + 5px); left: 0; right: 0; max-height: 215px; overflow-y: auto; padding: 5px; border: 1px solid #dce8d9; border-radius: 9px; background: #fff; box-shadow: 0 9px 28px #24432b24; }
+.user-name-choices[hidden] { display: none; }
+.user-name-choices button { display: block; width: 100%; padding: 9px 10px; border: 0; border-radius: 6px; background: #fff; color: #354b39; font-size: 12px; text-align: left; }
+.user-name-choices button:hover, .user-name-choices button:focus-visible { background: #ecf5e9; }
+.user-name-choices p { margin: 6px 8px; color: #829083; font-size: 11px; }
