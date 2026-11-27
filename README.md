@@ -1,5 +1,7 @@
 # シルクスクリーン スキルチェック（Sites版）
 
+現行Sitesソースとの照合結果は[ソースの由来](docs/source_provenance.md)を参照。
+
 [Notionのマニュアル](https://app.notion.com/p/3ecffab34d9680ddb51fdc4d2162a219?pvs=25)を元にした、工程ごとのスキルチェックアプリです。ローカル版 `../silk-screen-skill-check` を元に作成し、公開版の利用者と進捗はSitesのD1に保存します。
 
 工程本体を押すとスキルチェックが開き、右端の `?` を押すと詳細マニュアルが開きます。`?` はReact Iconsから生成したSVGです。詳細文はNotionの記載を元にし、短い工程には確認のヒントを補っています。
