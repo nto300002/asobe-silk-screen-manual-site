@@ -33,32 +33,6 @@ export default function PasskeyPage({returnTo="/"}:{returnTo?:string}) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [tab, setTab] = useState<"edit" | "accounts">("edit");
   const [showTabTutorial, setShowTabTutorial] = useState(false);
-  const [exporting, setExporting] = useState(false);
-  const [exportMessage, setExportMessage] = useState("");
-  const [exportChecksum, setExportChecksum] = useState<{ filename: string; text: string } | null>(null);
-  function download(blob: Blob, filename: string) {
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url; link.download = filename; document.body.appendChild(link); link.click(); link.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 60_000);
-  }
-  async function exportAll() {
-    setExporting(true); setExportMessage(""); setExportChecksum(null);
-    try {
-      const response = await fetch("/api/admin/export", { cache: "no-store" });
-      if (!response.ok) {
-        const detail = await response.json().catch(() => null) as { error?: string } | null;
-        throw new Error(detail?.error || `出力できませんでした（${response.status}）`);
-      }
-      const filename = /filename="([^"]+)"/.exec(response.headers.get("Content-Disposition") || "")?.[1] || "asobe-print-manual.zip";
-      const bytes = await response.arrayBuffer();
-      const hash = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", bytes)), byte => byte.toString(16).padStart(2, "0")).join("");
-      download(new Blob([bytes], { type: "application/zip" }), filename);
-      setExportChecksum({ filename: filename.replace(/\.zip$/, ".sha256"), text: `${hash}  ${filename}\n` });
-      setExportMessage("全件データ・テーブル構造・画像をダウンロードしました。照合用ファイルも保存してください。");
-    } catch (cause) { setExportMessage(cause instanceof Error ? cause.message : "出力できませんでした"); }
-    finally { setExporting(false); }
-  }
   const closeTabTutorial = useCallback(() => { sessionStorage.removeItem("skill-permission-tutorial"); setShowTabTutorial(false); }, []);
 
   useEffect(() => {
@@ -121,14 +95,6 @@ export default function PasskeyPage({returnTo="/"}:{returnTo?:string}) {
         <button type="button" role="tab" aria-selected={tab === "edit"} className={tab === "edit" ? "is-active" : ""} onClick={() => setTab("edit")}>編集権限</button>
         {isAdmin && <button type="button" role="tab" data-tutorial="accounts-tab" aria-selected={tab === "accounts"} className={tab === "accounts" ? "is-active" : ""} onClick={() => { setTab("accounts"); if (sessionStorage.getItem("skill-permission-tutorial") === "accounts-tab") { sessionStorage.setItem("skill-permission-tutorial", "role"); setShowTabTutorial(false); } }}>アカウント管理</button>}
       </div>
-
-      {isAdmin && tab === "accounts" && <section className="passkey-card" aria-labelledby="export-heading">
-        <h2 id="export-heading">全件データのダウンロード</h2>
-        <p>利用者・進捗・マニュアル・動画のレコード、全テーブルの構造と件数、保存画像を ZIP に出力します。認証情報と監査記録の値は含みません。</p>
-        <button type="button" disabled={exporting} onClick={() => void exportAll()}>{exporting ? "作成中…" : "全レコードとテーブル構造をダウンロード"}</button>
-        {exportChecksum && <button type="button" onClick={() => download(new Blob([exportChecksum.text], { type: "text/plain" }), exportChecksum.filename)}>照合用 SHA-256 を保存</button>}
-        {exportMessage && <p role="status">{exportMessage}</p>}
-      </section>}
 
       {tab === "edit" && <>
 
