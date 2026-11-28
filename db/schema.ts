@@ -4,9 +4,28 @@ import { sql } from "drizzle-orm";
 export const appSessions = sqliteTable("app_sessions", {
   tokenHash: text("token_hash").primaryKey(),
   userId: text("user_id").notNull(),
+  email: text("email").notNull().default(""),
+  displayName: text("display_name").notNull().default(""),
   lastActivityMs: integer("last_activity_ms").notNull(),
   createdAtMs: integer("created_at_ms").notNull(),
 }, table => [index("app_sessions_user_id_idx").on(table.userId)]);
+
+export const oauthStates = sqliteTable("oauth_states", {
+  stateHash: text("state_hash").primaryKey(),
+  browserTokenHash: text("browser_token_hash").notNull(),
+  nonce: text("nonce").notNull(),
+  codeVerifier: text("code_verifier").notNull(),
+  returnTo: text("return_to").notNull(),
+  expiresAtMs: integer("expires_at_ms").notNull(),
+  createdAtMs: integer("created_at_ms").notNull(),
+}, table => [index("oauth_states_expires_at_idx").on(table.expiresAtMs)]);
+
+export const staffIdentities = sqliteTable("staff_identities", {
+  googleSub: text("google_sub").primaryKey(),
+  userId: text("user_id").notNull(),
+  email: text("email").notNull().default(""),
+  createdAt: text("created_at").notNull(),
+}, table => [index("staff_identities_user_id_idx").on(table.userId)]);
 
 export const users = sqliteTable("users", {
   id: integer("id").primaryKey({ autoIncrement: true }),

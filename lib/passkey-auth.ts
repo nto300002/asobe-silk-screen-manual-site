@@ -4,15 +4,24 @@ import { reply, skillDb } from "@/lib/skill-db";
 
 export async function requireEditor() {
   const account = await getSkillAccount();
-  if (!account) return { response: reply({ error: "ChatGPT アカウントでサインインしてください" }, 401) };
+  if (!account) return { response: reply({ error: "Google アカウントでログインしてください" }, 401) };
   if (!account.active || !isStaff(account)) return { response: reply({ error: "職員権限がありません" }, 403) };
   return { account };
 }
 
 export function relyingParty() {
-  const settings = env as unknown as { WEBAUTHN_RP_ID?: string; WEBAUTHN_ORIGIN?: string };
-  const rpID = settings.WEBAUTHN_RP_ID?.trim();
-  const origin = settings.WEBAUTHN_ORIGIN?.trim();
+  const settings = env as unknown as { WEBAUTHN_RP_ID?: string; WEBAUTHN_ORIGIN?: string; APP_ORIGIN?: string };
+  let rpID = settings.WEBAUTHN_RP_ID?.trim();
+  let origin = settings.WEBAUTHN_ORIGIN?.trim();
+  if ((!rpID || !origin) && settings.APP_ORIGIN?.trim()) {
+    try {
+      const parsed = new URL(settings.APP_ORIGIN.trim());
+      if (parsed.protocol === "https:") {
+        rpID ||= parsed.hostname;
+        origin ||= parsed.origin;
+      }
+    } catch { /* fallback rejected below */ }
+  }
   if (!rpID || !origin || origin !== `https://${rpID}`) throw new Error("WebAuthn origin is not configured");
   return { rpID, origin };
 }

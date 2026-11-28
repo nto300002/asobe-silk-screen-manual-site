@@ -1,0 +1,11 @@
+# ローカル開発用テンプレート: `.dev.vars` にコピーして実値を設定してください（`.dev.vars` は Git 管理外）。
+# 本番環境では `npx wrangler secret put <KEY> --name asobe-silk-screen-manual` または Cloudflare Dashboard (Encrypted) で設定します。
+
+GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+APP_ORIGIN=http://127.0.0.1:8787
+ADMIN_OWNER_EMAIL=admin@example.com
+
+# Passkey (WebAuthn) 用（本番では APP_ORIGIN が https:// の場合は自動フォールバックされますが明示設定も可能）
+# WEBAUTHN_RP_ID=asobe-silk-screen-manual.asobe.workers.dev
+# WEBAUTHN_ORIGIN=https://asobe-silk-screen-manual.asobe.workers.dev

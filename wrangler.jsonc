@@ -1,0 +1,71 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "asobe-silk-screen-manual",
+  "main": "./build/sites-worker.ts",
+  "compatibility_date": "2026-05-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  // 非秘密設定のみ記載する。GOOGLE_CLIENT_SECRET / ADMIN_OWNER_EMAIL 等の秘密値・個人情報は
+  // wrangler secret put または Cloudflare Dashboard (Encrypted) で設定し、vars には記載しないこと。
+  "vars": {
+    "APP_ENV": "local"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "asobe-silk-screen-manual-db",
+      "database_id": "00000000-0000-4000-8000-000000000000",
+      "migrations_dir": "drizzle"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "asobe-silk-screen-manual-bucket"
+    }
+  ],
+  "env": {
+    "staging": {
+      "name": "asobe-silk-screen-manual-staging",
+      "vars": {
+        "APP_ENV": "staging"
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "asobe-silk-screen-manual-db-staging",
+          "database_id": "00000000-0000-4000-8000-000000000000",
+          "migrations_dir": "drizzle"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "BUCKET",
+          "bucket_name": "asobe-silk-screen-manual-bucket-staging"
+        }
+      ]
+    },
+    "production": {
+      "name": "asobe-silk-screen-manual",
+      "vars": {
+        "APP_ENV": "production"
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "asobe-silk-screen-manual-db",
+          "database_id": "00000000-0000-4000-8000-000000000000",
+          "migrations_dir": "drizzle"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "BUCKET",
+          "bucket_name": "asobe-silk-screen-manual-bucket"
+        }
+      ]
+    }
+  }
+}

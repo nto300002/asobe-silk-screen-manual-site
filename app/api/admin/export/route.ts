@@ -13,7 +13,9 @@ const policy = {
   manual_video_preview_checks: { all: 'video_id version platform actor_sub confirmed_at', export: 'video_id version platform confirmed_at' },
   progress: { all: 'user_id step_id item_index checked_at', export: 'user_id step_id item_index checked_at' },
   progress_archives: { all: 'merge_id user_id step_id item_index checked_at archived_at actor_sub', export: 'merge_id user_id step_id item_index checked_at archived_at' },
-  app_sessions: { all: 'token_hash user_id last_activity_ms created_at_ms', export: '' },
+  app_sessions: { all: 'token_hash user_id email display_name last_activity_ms created_at_ms', export: '' },
+  oauth_states: { all: 'state_hash browser_token_hash nonce code_verifier return_to expires_at_ms created_at_ms', export: '' },
+  staff_identities: { all: 'google_sub user_id email created_at', export: '' },
   account_identities: { all: 'access_sub email role active user_id last_seen_at approved_at', export: '' },
   staff_enrollment_grants: { all: 'access_sub approved_by target_role confirmed_name expires_at', export: '' },
   passkeys: { all: 'credential_id access_sub public_key counter transports created_at', export: '' },
@@ -100,7 +102,7 @@ async function archive() {
       yield { name: archivePath, bytes };
     }
     if (JSON.stringify(before) !== JSON.stringify(await listImages())) throw new Error('画像一覧が取得中に変更されました。再試行してください');
-    const manifest = { formatVersion: 1, exportId: crypto.randomUUID(), siteUrl: 'https://asobe-silk-screen-skill-check.hherocl278.chatgpt.site', generatedAt: timestamp, policyVersion: 1, snapshotMethod: 'single D1 batch transaction; immutable R2 objects verified by ETag, size and two key listings', tables: tableInfo.map(info => ({ name: info.name, count: info.count, classification: info.classification, exportedRows: exportedRows[String(info.name)] ?? 0, omittedColumns: info.omittedColumns })), images, files: manifestFiles, complete: true };
+    const manifest = { formatVersion: 1, exportId: crypto.randomUUID(), siteUrl: env.APP_ORIGIN?.trim() || 'https://asobe-silk-screen-skill-check.hherocl278.chatgpt.site', generatedAt: timestamp, policyVersion: 1, snapshotMethod: 'single D1 batch transaction; immutable R2 objects verified by ETag, size and two key listings', tables: tableInfo.map(info => ({ name: info.name, count: info.count, classification: info.classification, exportedRows: exportedRows[String(info.name)] ?? 0, omittedColumns: info.omittedColumns })), images, files: manifestFiles, complete: true };
     yield { name: 'manifest.json', bytes: encoder.encode(JSON.stringify(manifest, null, 2) + '\n') };
   }
   return new Response(streamedZip(entries()), { headers: { 'Content-Type': 'application/zip', 'Content-Disposition': `attachment; filename="${filename}"`, 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } });

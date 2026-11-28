@@ -37,7 +37,7 @@ export async function getSkillAccount(): Promise<SkillAccount | null> {
 
 export function accountDenied(account: SkillAccount | null): Response | null {
   const status = accountAccessStatus(account);
-  if (status !== 200) return Response.json({ error: status === 401 ? "ChatGPT アカウントでサインインしてください" : "このアカウントは利用できません" }, { status, headers: { "Cache-Control": "no-store" } });
+  if (status !== 200) return Response.json({ error: status === 401 ? "Google アカウントでログインしてください" : "このアカウントは利用できません" }, { status, headers: { "Cache-Control": "no-store" } });
   return null;
 }
 

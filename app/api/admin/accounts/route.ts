@@ -112,6 +112,9 @@ async function PATCHHandler(request: Request) {
       role, approving ? 1 : 0, approving ? new Date().toISOString() : null, subject).run();
   if (!result.meta.changes) return reply({ error: "アカウントが見つかりません" }, 404);
   await db.prepare("DELETE FROM edit_grants WHERE access_sub = ?").bind(subject).run();
+  if (!active) {
+    await db.prepare("DELETE FROM app_sessions WHERE user_id = ?").bind(subject).run();
+  }
   await auditStatement(db, auth.account!.sub, 'skill.account.update',
     `account:${subject}:${role}:${active ? 'active' : 'inactive'}`).run();
   return reply({ ok: true });
